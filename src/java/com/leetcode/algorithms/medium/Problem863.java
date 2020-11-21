@@ -24,7 +24,7 @@ public class Problem863 {
 
   public List<Integer> distanceK(TreeNode root, TreeNode target, int K) {
     List<Integer> result = new ArrayList<>();
-    if(root == null || target == null || K < 0){
+    if (root == null || target == null || K < 0) {
       return result;
     }
 
@@ -44,7 +44,7 @@ public class Problem863 {
 
         while (!bfsQueue1.isEmpty()) {
           TreeNode currElement = bfsQueue1.poll();
-          if(seenSet.contains(currElement)){
+          if (seenSet.contains(currElement)) {
             continue;
           }
 
@@ -58,7 +58,7 @@ public class Problem863 {
               bfsQueue2.add(currElement.right);
             }
             TreeNode parent = parentMap.get(currElement);
-            if(parent != null){
+            if (parent != null) {
               bfsQueue2.add(parent);
             }
           }
@@ -67,7 +67,7 @@ public class Problem863 {
       } else if (!bfsQueue2.isEmpty()) {
         while (!bfsQueue2.isEmpty()) {
           TreeNode currElement = bfsQueue2.poll();
-          if(seenSet.contains(currElement)){
+          if (seenSet.contains(currElement)) {
             continue;
           }
           if (currDistance == K) {
@@ -80,7 +80,7 @@ public class Problem863 {
               bfsQueue1.add(currElement.right);
             }
             TreeNode parent = parentMap.get(currElement);
-            if(parent != null){
+            if (parent != null) {
               bfsQueue1.add(parent);
             }
           }
@@ -94,15 +94,15 @@ public class Problem863 {
   }
 
   private void createParentMap(TreeNode node, Map<TreeNode, TreeNode> parentMap) {
-    if(node == null){
+    if (node == null) {
       return;
     }
 
-    if(node.left != null){
+    if (node.left != null) {
       parentMap.put(node.left, node);
       createParentMap(node.left, parentMap);
     }
-    if(node.right != null){
+    if (node.right != null) {
       parentMap.put(node.right, node);
       createParentMap(node.right, parentMap);
     }
