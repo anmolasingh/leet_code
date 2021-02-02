@@ -8,6 +8,7 @@ package com.leetcode.algorithms.medium;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 public class Problem230 {
 
@@ -24,8 +25,12 @@ public class Problem230 {
 
   public int kthSmallest(TreeNode root, int k) {
     List<Integer> sortedList = new ArrayList<>();
-    inorder(root, sortedList);
-    return sortedList.get(k - 1);
+
+    /*2 approaches*/
+    /*inorder(root, sortedList);
+    return sortedList.get(k - 1);*/
+    /*OR*/
+    return iterativeInorder(root, k); //Better performance
   }
 
   private void inorder(TreeNode node, List<Integer> sortedList) {
@@ -37,6 +42,39 @@ public class Problem230 {
     if (node.right != null) {
       inorder(node.right, sortedList);
     }
+  }
+
+  private int iterativeInorder(TreeNode root, int k){
+    Stack<TreeNode> s = new Stack<>();
+    TreeNode curr = root;
+
+    // traverse the tree
+    while (curr != null || s.size() > 0)
+    {
+      /* Reach the left most Node of the
+      curr Node */
+      while (curr !=  null)
+      {
+      /* place pointer to a tree node on
+         the stack before traversing
+        the node's left subtree */
+        s.push(curr);
+        curr = curr.left;
+      }
+
+      /* Current must be NULL at this point */
+      curr = s.pop();
+
+      if((--k)==0){
+        break;
+      }
+
+      /* we have visited the node and its
+         left subtree.  Now, it's right
+         subtree's turn */
+      curr = curr.right;
+    }
+    return curr.val;
   }
 
   public static void main(String[] args) {
