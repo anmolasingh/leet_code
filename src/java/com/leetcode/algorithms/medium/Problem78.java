@@ -8,10 +8,12 @@ package com.leetcode.algorithms.medium;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Problem78 {
 
-  public List<List<Integer>> subsets(int[] nums) {
+  //Todo - Remove few duplicates
+  /*public List<List<Integer>> subsets(int[] nums) {
     List<List<Integer>> list = new ArrayList<>();
     backtrack(list, new ArrayList<>(), nums, 0);
     return list;
@@ -30,11 +32,30 @@ public class Problem78 {
         backtrack(list, localList, nums, index++);
       }
     }
+  }*/
+
+  public List<List<Integer>> subsetsIterative(int[] nums) {
+    List<List<Integer>> result = new ArrayList<>();
+    result.add(new ArrayList<Integer>());
+    for(int i=0; i<nums.length; ++i) {
+      List<List<Integer>> temp1 = new ArrayList<>();
+      for(int j=0;j<result.size(); ++j) {
+        List<Integer> temp = result.get(j).stream().collect(Collectors.toList());
+        temp.add(nums[i]);
+        temp1.add(temp);
+      }
+
+      temp1.stream().forEach(l -> {
+        result.add(l);
+      });
+    }
+    return result;
   }
 
   public static void main(String[] args) {
     Problem78 problem78 = new Problem78();
     int nums[] = {1, 2, 3};
-    System.out.println(problem78.subsets(nums));
+    //System.out.println(problem78.subsets(nums));//Incorrect
+    System.out.println(problem78.subsetsIterative(nums));
   }
 }
