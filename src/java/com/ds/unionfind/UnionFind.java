@@ -40,9 +40,11 @@ public class UnionFind {
     if (sz[i] < sz[j]) {
       id[i] = j;
       sz[j] += sz[i];
+      sz[i] = 0;
     } else {
       id[j] = i;
       sz[i] += sz[j];
+      sz[j] = 0;
     }
   }
 
