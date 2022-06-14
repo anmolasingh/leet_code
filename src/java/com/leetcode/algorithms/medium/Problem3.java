@@ -32,6 +32,6 @@ public class Problem3 {
 
   public static void main(String[] args) {
     Problem3 problem3 = new Problem3();
-    System.out.println(problem3.lengthOfLongestSubstring("abcabablubcbb"));
+    System.out.println(problem3.lengthOfLongestSubstring("abcabcbb"));//3
   }
 }

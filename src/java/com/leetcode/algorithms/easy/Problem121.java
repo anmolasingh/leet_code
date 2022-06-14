@@ -14,17 +14,14 @@ public class Problem121 {
     }
 
     int low = prices[0];
-    int high = prices[0];
 
     int maxProfit = 0;
 
     for(int i=1; i<prices.length; ++i) {
       if(prices[i] < low) {
         low = prices[i];
-        high = prices[i];
       } else {
-        high = prices[i];
-        int currentProfit = high - low;
+        int currentProfit = prices[i] - low;
         if(currentProfit > maxProfit) {
           maxProfit = currentProfit;
         }
