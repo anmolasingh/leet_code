@@ -6,75 +6,31 @@ package com.leetcode.algorithms.medium;
  * Tags: Trees
  * */
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
+import java.util.PriorityQueue;
 
 public class Problem230 {
 
-  static class TreeNode {
-
-    int val;
-    TreeNode left;
-    TreeNode right;
-
-    TreeNode(int x) {
-      val = x;
-    }
-  }
-
   public int kthSmallest(TreeNode root, int k) {
-    List<Integer> sortedList = new ArrayList<>();
-
-    /*2 approaches*/
-    /*inorder(root, sortedList);
-    return sortedList.get(k - 1);*/
-    /*OR*/
-    return iterativeInorder(root, k); //Better performance
+    PriorityQueue<Integer> heap = new PriorityQueue<>();
+    dfs(root, heap, k);
+    int result = 0;
+    while(!heap.isEmpty()) {
+      result = heap.poll();
+    }
+    return result;
   }
 
-  private void inorder(TreeNode node, List<Integer> sortedList) {
-
-    if (node.left != null) {
-      inorder(node.left, sortedList);
+  private void dfs(TreeNode node, PriorityQueue<Integer> heap, int k) {
+    if(node == null) {
+      return;
     }
-    sortedList.add(node.val);
-    if (node.right != null) {
-      inorder(node.right, sortedList);
+
+    dfs(node.left, heap, k);
+    if(heap.size() == k) {
+      return;
     }
-  }
-
-  private int iterativeInorder(TreeNode root, int k){
-    Stack<TreeNode> s = new Stack<>();
-    TreeNode curr = root;
-
-    // traverse the tree
-    while (curr != null || s.size() > 0)
-    {
-      /* Reach the left most Node of the
-      curr Node */
-      while (curr !=  null)
-      {
-      /* place pointer to a tree node on
-         the stack before traversing
-        the node's left subtree */
-        s.push(curr);
-        curr = curr.left;
-      }
-
-      /* Current must be NULL at this point */
-      curr = s.pop();
-
-      if((--k)==0){
-        break;
-      }
-
-      /* we have visited the node and its
-         left subtree.  Now, it's right
-         subtree's turn */
-      curr = curr.right;
-    }
-    return curr.val;
+    heap.add(node.val);
+    dfs(node.right, heap, k);
   }
 
   public static void main(String[] args) {

@@ -17,28 +17,23 @@ public class Problem19 {
   }
 
   public ListNode removeNthFromEnd(ListNode head, int n) {
-    if(head == null) {
-      return null;
+    ListNode p1 = head, p2 = head, prev = null;
+    for(int i=0; i<n; i++) {
+      p2 = p2.next;
     }
-    ListNode curr = head;
-    ListNode prev = head;
-    int iterator = -1;
-    while(curr != null) {
-      iterator++;
-      if(iterator > n) {
-        iterator = n;
-        prev = prev.next;
-      }
-      curr = curr.next;
+
+    while(p2 != null) {
+      prev = p1;
+      p1 = p1.next;
+      p2 = p2.next;
     }
-    if(prev.next == null) {
-      return null;
-    }
-    if(iterator < n) {
+
+    //Single node case
+    if(prev != null) {
+      prev.next = p1.next;
+    } else {
       head = head.next;
-      return head;
     }
-    prev.next = prev.next.next;
     return head;
   }
 

@@ -8,9 +8,47 @@ package com.leetcode.algorithms.medium;
 
 public class Problem5 {
 
+    public String longestPalindrome(String s) {
+        int maxLength = 1;
+        String res = "" + s.charAt(0);
+        for(int i=0; i<s.length(); i++) {
+            int l = i, r = i;
+            while(l >= 0 && r < s.length()) {
+                if(s.charAt(l) == s.charAt(r)) {
+                    int currLength = r - l + 1;
+                    if(currLength > maxLength) {
+                        maxLength = currLength;
+                        res = s.substring(l, r+1);
+                    }
+                    l--;
+                    r++;
+                } else {
+                    break;
+                }
+            }
+
+            l = i;
+            r = i+1;
+            while(l >= 0 && r < s.length()) {
+                if(s.charAt(l) == s.charAt(r)) {
+                    int currLength = r - l + 1;
+                    if(currLength > maxLength) {
+                        maxLength = currLength;
+                        res = s.substring(l, r+1);
+                    }
+                    l--;
+                    r++;
+                } else {
+                    break;
+                }
+            }
+        }
+        return res;
+    }
+
     boolean[][] cache;
 
-    public String longestPalindrome(String s) {
+    public String longestPalindrome2(String s) {
         cache = new boolean[s.length()][s.length()];
         for (int i = 0; i < s.length(); i++) {
             cache[i][i] = true;
@@ -43,6 +81,7 @@ public class Problem5 {
 
     public static void main(String[] args) {
         Problem5 p5 = new Problem5();
-        System.out.println(p5.longestPalindrome("ffffffffffff"));
+        System.out.println(p5.longestPalindrome("babad"));//bab
+        System.out.println(p5.longestPalindrome("cbbd"));//bb
     }
 }

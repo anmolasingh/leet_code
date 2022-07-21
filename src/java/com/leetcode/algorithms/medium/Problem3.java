@@ -12,19 +12,16 @@ import java.util.Set;
 public class Problem3 {
 
   public int lengthOfLongestSubstring(String s) {
-    if (s == null || s.length() == 0) {
-      return 0;
-    }
     Set<Character> set = new HashSet<>();
-    int maxLength = 0, indexLeft = 0, indexRight = 0;
-    while (indexRight < s.length()) {
-      if (!set.contains(s.charAt(indexRight))) {
-        set.add(s.charAt(indexRight));
-        indexRight++;
+    int l=0, r=0, maxLength=0;
+    while(r < s.length()) {
+      if(!set.contains(s.charAt(r))) {
+        set.add(s.charAt(r));
         maxLength = Math.max(maxLength, set.size());
+        r++;
       } else {
-        set.remove(s.charAt(indexLeft));
-        indexLeft++;
+        set.remove(s.charAt(l));
+        l++;
       }
     }
     return maxLength;

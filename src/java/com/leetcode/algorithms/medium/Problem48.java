@@ -11,6 +11,24 @@ import java.util.Arrays;
 public class Problem48 {
 
   public void rotate(int[][] matrix) {
+    int l=0, r=matrix[0].length-1;
+
+    while(l<r) {
+      for(int i=1;i<=(r-l);i++) {
+        int t = l, b = r;
+
+        int topLeft = matrix[t][l+i];
+        matrix[t][l+i] = matrix[b-i][l];
+        matrix[b-i][l] = matrix[b][r-i];
+        matrix[b][r-i] = matrix[t+i][r];
+        matrix[t+i][r] = topLeft;
+      }
+      l+=1;
+      r-=1;
+    }
+  }
+
+  public void rotate1(int[][] matrix) {
     for (int i = 0; i < matrix.length; i++) {
       for (int j = 0; j < i; j++) {
         int temp = matrix[i][j];
@@ -31,16 +49,12 @@ public class Problem48 {
   public static void main(String[] args) {
     Problem48 problem48 = new Problem48();
     int[][] matrix = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
-    print(matrix);
     problem48.rotate(matrix);
-    print(matrix);
+    System.out.println(Arrays.deepToString(matrix));
+    /*
+     * [7, 4, 1]
+     * [8, 5, 2]
+     * [9, 6, 3]
+     * */
   }
-
-  private static void print(int[][] matrix) {
-    System.out.println("-----------------------");
-    for (int i = 0; i < matrix.length; i++) {
-      System.out.println(Arrays.toString(matrix[i]));
-    }
-  }
-
 }

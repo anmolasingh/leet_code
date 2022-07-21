@@ -9,26 +9,21 @@ package com.leetcode.algorithms.easy;
 public class Problem121 {
 
   public int maxProfit(int[] prices) {
-    if(prices == null || prices.length == 0){
+    if(prices.length == 1) {
       return 0;
     }
+    int left = 0;
+    int right = 1;
+    int max = 0;
 
-    int low = prices[0];
-
-    int maxProfit = 0;
-
-    for(int i=1; i<prices.length; ++i) {
-      if(prices[i] < low) {
-        low = prices[i];
-      } else {
-        int currentProfit = prices[i] - low;
-        if(currentProfit > maxProfit) {
-          maxProfit = currentProfit;
-        }
+    while(right < prices.length) {
+      while(prices[left] > prices[right]) {
+        left++;
       }
+      max = Math.max(max, prices[right] - prices[left]);
+      right++;
     }
-
-    return maxProfit;
+    return max;
   }
 
   public static void main(String[] args) {
