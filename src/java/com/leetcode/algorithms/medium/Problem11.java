@@ -9,19 +9,20 @@ package com.leetcode.algorithms.medium;
 public class Problem11 {
 
   public int maxArea(int[] height) {
-    int maxArea = 0, aPointer = 0, bPointer = height.length - 1;
+    int result = 0;
 
-    while (aPointer < bPointer) {
-      if (height[aPointer] < height[bPointer]) {
-        maxArea = Math.max(maxArea, height[aPointer] * (bPointer - aPointer));
-        aPointer++;
+    int l=0, r=height.length-1;
+    while(l < r) {
+      int currArea = Math.min(height[l], height[r]) * (r - l);
+      result = Math.max(result, currArea);
+      if(height[l] < height[r]) {
+        l++;
       } else {
-        maxArea = Math.max(maxArea, height[bPointer] * (bPointer - aPointer));
-        bPointer--;
+        r--;
       }
     }
 
-    return maxArea;
+    return result;
   }
 
   public static void main(String[] args) {
