@@ -24,6 +24,6 @@ public class Problem198 {
 
     public static void main(String[] args) {
         Problem198 problem198 = new Problem198();
-        System.out.println(problem198.rob(new int[]{1,2,3,1}));
+        System.out.println(problem198.rob(new int[]{1,2,3,1}));//4
     }
 }

@@ -8,9 +8,43 @@ package com.leetcode.algorithms.medium;
  *  https://www.geeksforgeeks.org/count-possible-decodings-given-digit-sequence/
  * */
 
+import java.util.Arrays;
+
 public class Problem91 {
 
     public int numDecodings(String s) {
+        int cache[] = new int[s.length()];
+        Arrays.fill(cache, -1);
+        return dfs(s, 0, cache);
+    }
+
+    private int dfs(String s, int i, int[] cache) {
+        if(i >= s.length()) {
+            return 1;
+        }
+
+        if(cache[i] != -1) {
+            return cache[i];
+        }
+
+        char ch = s.charAt(i);
+        int result = 0;
+        if(ch != '0') {
+            result += dfs(s, i+1, cache);
+        }
+        if((ch == '1' || ch == '2') && i+1 < s.length()) {
+            char nextChar = s.charAt(i+1);
+            if(ch == '2' && nextChar >= '0' && nextChar <= '6') {
+                result += dfs(s, i+2, cache);
+            }else if(ch == '1' && nextChar >= '0' && nextChar <= '9') {
+                result += dfs(s, i+2, cache);
+            }
+        }
+        cache[i] = result;
+        return result;
+    }
+
+    public int numDecodingsIterative(String s) {
         int cache[] = new int[s.length()+1];
         cache[0] = 1;//empty string ""
         cache[1] = s.charAt(0) == '0'? 0 : 1;//string with 1 character

@@ -12,6 +12,22 @@ import java.util.List;
 public class Problem139 {
 
     public boolean wordBreak(String s, List<String> wordDict) {
+        boolean cache[] = new boolean[s.length()+1];
+        cache[s.length()] = true;
+        for(int i=s.length()-1;i>=0;i--) {
+            for(String word: wordDict) {
+                if(i + word.length() <= s.length() && word.equals(s.substring(i, i + word.length()))) {
+                    cache[i] = cache[i+ word.length()];
+                }
+                if(cache[i] == true) {
+                    break;
+                }
+            }
+        }
+        return cache[0];
+    }
+
+    public boolean wordBreakDFS(String s, List<String> wordDict) {
         return dfs(s, wordDict, 0, 0, new int[s.length()]);
     }
 
@@ -41,6 +57,6 @@ public class Problem139 {
     }
 
     public static void main(String[] args) {
-        System.out.println(new Problem139().wordBreak("leetcode", Arrays.asList("leet","code")));
+        System.out.println(new Problem139().wordBreak("leetcode", Arrays.asList("leet","code")));//true
     }
 }

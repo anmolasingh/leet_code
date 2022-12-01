@@ -14,18 +14,19 @@ public class Problem322 {
         int cache[] = new int[amount+1];
         Arrays.fill(cache, Integer.MAX_VALUE);
         cache[0] = 0;
-        for(int i=1; i<=amount; i++){
-            int minChange = Integer.MAX_VALUE;
-            for(int j=0; j<coins.length; j++){
-                int reducedAmount = i - coins[j];
-                if(reducedAmount >= 0 && cache[reducedAmount] != Integer.MAX_VALUE) {
-                    minChange = Math.min(minChange, cache[reducedAmount] + 1);
+        for(int i=1; i<=amount;i++) {
+            for(int j=0;j<coins.length;j++) {
+                int ra = i - coins[j];
+                if(ra == 0) {
+                    cache[i] = 1;
+                } else if(ra > 0) {
+                    if(cache[ra] != Integer.MAX_VALUE) {
+                        cache[i] = Math.min(cache[i], cache[ra] + 1);
+                    }
                 }
             }
-            cache[i] = minChange;
         }
-        //System.out.println(Arrays.toString(cache));
-        return cache[amount] == Integer.MAX_VALUE ? -1: cache[amount];
+        return cache[amount] == Integer.MAX_VALUE ? -1 : cache[amount];
     }
 
     public static void main(String[] args) {

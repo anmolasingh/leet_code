@@ -6,6 +6,15 @@ package com.leetcode.algorithms.medium;
  * Tags: String
  * */
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
+
 public class Problem647 {
 
     public int countSubstrings(String s) {
@@ -40,5 +49,8 @@ public class Problem647 {
     public static void main(String[] args) {
         System.out.println(new Problem647().countSubstrings("abc"));//3
         System.out.println(new Problem647().countSubstrings("aaa"));//6
+        System.out.println(new Problem647().countSubstrings("bcaa"));//5
+        System.out.println(new Problem647().countSubstrings("caab"));//5
+        System.out.println(new Problem647().countSubstrings("abcaab"));//10
     }
 }
